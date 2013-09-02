@@ -22,7 +22,6 @@ linux study 2013/9/2
 
 
            * read.c
-     
            #include <unstd.h>
            #include <sys.stat.h>
            #include <fcntl.h>
