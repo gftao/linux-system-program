@@ -73,4 +73,4 @@ linux study 2013/9/2
                         return 0;
                           
             }
-            ## open("abc", O_RDWR|O_APPEND, 0777);
+            ## open("abc", O_RDWR|O_APPEND, 0777)中的 O_APPEND参数 对 lseek("abc", 100, SEEK_END) 拓展空间有干扰！；
