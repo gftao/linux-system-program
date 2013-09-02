@@ -45,3 +45,32 @@ linux study 2013/9/2
              return 0;
            }
   
+            3 lseek.c
+            #include <sys/types.h>
+            #include <sys/stat.h>
+            #include <unistd.h>
+            #include <fcntl.h>
+            #include <stdio.h>
+            #include <stdlib.h>
+            
+            int main(void)
+            {
+                        int fd;
+                        int size;
+                        char buf[4096] = "hello";
+                        char str[4096] ;
+                        fd = open("abc", O_CREAT|O_RDWR|O_TRUNC, 0777);
+                        if(fd == -1){
+                                    perror("open");
+                                    exit(-1);
+                        }
+                        len = write(fd, buf, strlen(buf));
+                        lseek(fd, 0 - len, SEEK_CUR);
+                        read(fd, str, len);
+                        str[len] = '\0';
+                        write(STDOUT_FILENO, str, len);
+                        
+                        return 0;
+                          
+            }
+            ## open("abc", O_RDWR|O_APPEND, 0777);
