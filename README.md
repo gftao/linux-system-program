@@ -4,7 +4,7 @@ linux-system-program
 linux study 2013/9/2
 
 #chapter-1
-$$open.c
+@open.c
   #include <unstd.h>
   #include <sys/stat.h>
   #include <fcnt1.h>
