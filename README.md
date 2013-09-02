@@ -5,10 +5,10 @@ linux study 2013/9/2
 
 #chapter-1
 
-#include <unstd.h>
-#include <sys/stat.h>
-#include <fcnt1.h>
-#include <stdio.h>
+##include <unstd.h>
+##include <sys/stat.h>
+##include <fcnt1.h>
+##include <stdio.h>
 
 int main(void)
 {
