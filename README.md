@@ -145,6 +145,9 @@ linux study 2013/9/2
 			int main(void)
 			{
 				int fd;
+				int i;
+				int *mm;
+				
 				if(fd = open("/dev/fb0", O_RDWR) < 0){
 					perror("open");
 					return -1;
@@ -155,6 +158,15 @@ linux study 2013/9/2
 					return -1;
 				}
 				printf("width:%d\thign:%d\tbpp:%d\n", fb_var.xres, fb_var.yres, fb_var.bits_per_pixel);
+				
+				mm = mmap(NULL,fb_var.xres * fb_var.yres * fb_var.bits_per_pixel / 8, PROT_WRITE, MAP_SHARED, fd, 0);
+				if(mm == MAP_FAILED){
+					perror("mmap");
+					exit(-1);
+				}
+				for(i = 0; i < fb_var.xres * fb_var.yres, i++)
+					mm[i] = 0x00ff0000;	/*灰度8红8绿8蓝8*/
+				munmap(mm, fb_var.xres * fb_var.yres * fb_var.bit_per_pixel /8);
 				close(fd); 
 			
 				return 0;
@@ -187,5 +199,17 @@ linux study 2013/9/2
 				
 				return 0;
 			}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
