@@ -124,7 +124,7 @@ linux study 2013/9/2
             		perror("iocntl TIOCGWINSZ error);
             		exit(1);
             	}
-            	printf("%d rows, %d columns\n");
+            	printf("%d rows, %d columns\n"　size.ws_row, size.ws_col);
             	
             	return 0;
             }
