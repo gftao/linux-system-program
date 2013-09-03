@@ -108,6 +108,26 @@ linux study 2013/9/2
             	return 0;
 	        }
             
+            5 ioctl(int d, int request, ...) 获取或设置文件本身特有属性，命令有对应的设备文件驱动命令
+            /*d 某设备的文件描述符*/
+            #include <stdio.h>
+            #include <stdlib.h>
+            #include <unistd.h>
+            #incldue <sys/iocntl.h>
+            
+            int main(void)
+            {
+            	struct winsize size;
+            	if(isatty(STDOUT_FILENO) == 0)
+            		exit(1);
+            	if(iocntl(STDOUT_FILENO, TIOCGWINSZ, &size) < 0){ /* TIOCGWINSZ 有驱动层LＣD_read,提供的命令。*/
+            		perror("iocntl TIOCGWINSZ error);
+            		exit(1);
+            	}
+            	printf("%d rows, %d columns\n");
+            	
+            	return 0;
+            }
 
 
 
