@@ -76,3 +76,40 @@ linux study 2013/9/2
                           
             }
             ## open("abc", O_RDWR|O_APPEND, 0777)中的 O_APPEND参数 对 lseek("abc", 100, SEEK_END) 拓展空间有干扰！；
+
+
+
+            4 fcntl(fd, F_DUPFD, flags)
+            /*flags 如果已用，如flags = 0，fcntl返回一个最小的未用的一个文件描述符; 如果flags没用，fcntl返回flags*/
+            #include <unitd.h>
+            #include <fcntl.h>
+            #include <stdio.h>
+            
+            int main(void)
+            {
+            	int fd, flags;
+            	
+            	fd = open("somefile" O_RDWR|O_CREAT, 0644);
+            	flags = fcntl(fd, F_DUPFD, 0);
+            	if(flags < 0){
+            		perror("fcntl");
+            		exit(1);
+            	}
+            	if(fd < 0){
+            		perror("open");
+            		exit(1);
+            	}
+            	printf("%d\n", flags);
+            	write(fd, "hello ", 6);
+            	write(flags, "world!\n", 7);
+            	close(fd);
+            	close(flags);
+            	
+            	return 0;
+	        }
+            
+
+
+
+
+
