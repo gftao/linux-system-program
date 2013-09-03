@@ -145,7 +145,7 @@ linux study 2013/9/2
 			int main(void)
 			{
 				int fd;
-				if(fd = open("/dev/fb0", O_RDWR)) < 0){
+				if(fd = open("/dev/fb0", O_RDWR) < 0){
 					perror("open");
 					return -1;
 				}
@@ -155,7 +155,7 @@ linux study 2013/9/2
 					return -1;
 				}
 				printf("width:%d\thign:%d\tbpp:%d\n", fb_var.xres, fb_var.yres, fb_var.bits_per_pixel);
-				fclose(fd); 
+				close(fd); 
 			
 				return 0;
 			}
