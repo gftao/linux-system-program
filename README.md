@@ -128,7 +128,33 @@ linux study 2013/9/2
             	
             	return 0;
             }
-
+			
+			5.1 ioctl 数码相框应用
+			#include <stdio.h>
+			#include <string.h>
+			#include <sys/iocntl.h>
+			#include <errno.h>
+			#include <sys/mman.h>
+			#include <linux/fb.h>
+			#include <fcntl.h>
+			
+			int main(void)
+			{
+				int fd;
+				if(fd = open("/dev/fb0", O_RDWR)) < 0){
+					perror("open");
+					return -1;
+				}
+				struct fb_var_screeninfo fb_var;
+				if(iocntl(fd, FBIOGET_VSCREENINFO, &fb_var) < 0){
+					perror("iocntl");
+					return -1;
+				}
+				printf("width:%d\thign:%d\tbpp:%d\n", fb_var.xres, fb_var.yres, fb_var.bits_per_pixel);
+				fclose(fd); 
+			
+				return 0;
+			}
 
 
 
