@@ -162,7 +162,7 @@ linux study 2013/9/2
 
 
 			6 void *mmap(void *addr, size_t len, int prot, int flag, int filedes, off_t off)
-			prot 为内存权限 
+			prot 为内存权限  len = 4096*n,linux页面映射文件 所以 off偏移量应该为4096的整数倍
 			
 			#include <stdlib.h>
 			#include <sys/mman.h>
@@ -183,7 +183,7 @@ linux study 2013/9/2
 				}
 				close(fd);   /* 把fd关掉并不影响该文件已建立的映射， 仍然可以对文件进行读写*/
 				p[0] = 0x30313233;
-				munmap(p, 6);
+				munmap(p, 6);/* len = 6但实际是一页释放，因为操作系统是以页面管理文件*/
 				
 				return 0;
 			}
