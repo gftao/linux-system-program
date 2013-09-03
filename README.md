@@ -128,15 +128,19 @@ linux study 2013/9/2
             	
             	return 0;
             }
+		
+		
 			
 			5.1 ioctl 数码相框应用
+			
 			#include <stdio.h>
 			#include <string.h>
-			#include <sys/iocntl.h>
+			#include <sys/ioctl.h>
 			#include <errno.h>
 			#include <sys/mman.h>
 			#include <linux/fb.h>
 			#include <fcntl.h>
+			#include <unistd.h>
 			
 			int main(void)
 			{
@@ -146,7 +150,7 @@ linux study 2013/9/2
 					return -1;
 				}
 				struct fb_var_screeninfo fb_var;
-				if(iocntl(fd, FBIOGET_VSCREENINFO, &fb_var) < 0){
+				if(ioctl(fd, FBIOGET_VSCREENINFO, &fb_var) < 0){
 					perror("iocntl");
 					return -1;
 				}
