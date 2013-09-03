@@ -162,6 +162,7 @@ linux study 2013/9/2
 
 
 			6 void *mmap(void *addr, size_t len, int prot, int flag, int filedes, off_t off)
+			prot 为内存权限 
 			
 			#include <stdlib.h>
 			#include <sys/mman.h>
@@ -180,7 +181,7 @@ linux study 2013/9/2
 					perror("mmap");
 					exit(1);
 				}
-				close(fd);
+				close(fd);   /* 把fd关掉并不影响该文件已建立的映射， 仍然可以对文件进行读写*/
 				p[0] = 0x30313233;
 				munmap(p, 6);
 				
