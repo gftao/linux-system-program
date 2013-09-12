@@ -1,1 +1,36 @@
 信号
+
+
+	1.sigqueue() 使用；
+	
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <unistd.h>
+	#include <signal.h>
+	
+	int main(int argc, char *argv[])
+	{
+		struct sigaction act;
+		union sigvla mysigval;
+		int i;
+		int sig;
+		pit_t pit;
+		char data[10];
+		
+		memset(data, 0, sizeof(data));
+		for(i = 0; i < 5; i++)
+		{
+			data[i] = '1' + i;
+		}
+		mysig.sival_int = 555;
+		//mysig.sval_ptr = data;
+		
+		sig = atoi(argv[1]);
+		pid = getpid();
+		
+		act.sa_sigaction = new_op;
+		sigemptyset(&act.sa_mask);
+		act.flag = SA_SIGINFO;
+		
+		return 0;
+	}
