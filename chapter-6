@@ -8,6 +8,16 @@
 	#include <unistd.h>
 	#include <signal.h>
 	
+	void new_op(int signum, siginfo_t *info, void *myact)
+	{
+		int i;
+		for(i = 0; i < 10; i++){
+			printf("%c ", *((char *) (info ->si_ptr) + i));
+		}	
+		//printf("%d\n", info->si_int);
+		printf("handle signal %d over; \n", signum);
+	}
+	
 	int main(int argc, char *argv[])
 	{
 		struct sigaction act;
@@ -31,6 +41,15 @@
 		act.sa_sigaction = new_op;
 		sigemptyset(&act.sa_mask);
 		act.flag = SA_SIGINFO;
+		
+		if(sigaction(sig, &act, NULL))
+			printf("install signal error\n");
+		while(1)
+		{
+			sleep(2);
+			printf("wait for the signal\n);
+			sigqueue(pid, sig, mysigval);
+		}
 		
 		return 0;
 	}
