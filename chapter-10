@@ -163,8 +163,39 @@ socket 编程难点
 					printf("recieved from %s at PORT %d\n",
 						inet_ntohl(SF_INET, &cliaddr.sin_addr.s_addr, str, sizeof(str)
 						ntohs(cliaddr.sin_port));
-					
-				}	
+					for(j = 0; j < OPEN_MAX; j++)
+						if(client[j] < 0) {
+							client[j] = connfd;
+							break;
+						}
+					if(j > maxi)
+						maxi = j;
+					tep.events = EPOLLIN;
+					tep.data.fd = connfd;
+					res = epoll_ctl(efd, EPOLL_CTL_ADD, connfd, &tep);
+					if(res == -1)
+						perr_exit("epoll_ctl");
+				} else {
+					sockfd = ep[i].data.fd;
+					n = read(sockfd, buf, MAXLINE);
+					if(n == 0) {
+						for(j = 0; j <= maxi; j++) {
+							if(client[j] == sockfd) {
+								client[j] = -1;
+								break;
+							}
+						}
+						res = epoll_ctl(efd, EOPLL_CTL_DEL, sockfd, NULL);
+						if(res == -1)
+							perr_exit("epoll_ctl");
+						close(sockfd);
+						printf("client[%d] closed connection\n",j);
+					} else {
+						for(j = 0; j < n; j++)
+							buf[j] = toupper(buf[j]);
+						write(sockfd, buf, n);
+					}
+				}
 			}
 		}
 	
